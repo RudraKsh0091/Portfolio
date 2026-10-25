@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Terminal mode. Always dark, whatever the site theme, like a real terminal.
+   ========================================================================== */
+.term {
+  --t-bg: #070a0f;
+  --t-bar: #0e131b;
+  --t-text: #d5dde8;
+  --t-dim: #6b778a;
+  --t-green: #5fd38d;
+  --t-cyan: #62b6ff;
+  --t-amber: #ffb454;
+  --t-violet: #b49cff;
+  --t-red: #ff7a6b;
+
+  position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; padding: clamp(0.5rem, 3vw, 2.5rem);
+  background: rgba(3, 6, 10, 0.78); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  animation: termFade 0.25s ease;
+}
+.term[hidden] { display: none; }
+
+.term__window {
+  display: flex; flex-direction: column; width: min(1000px, 100%); height: min(760px, 100%);
+  background: var(--t-bg); color: var(--t-text); border: 1px solid #1f2837; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(98, 182, 255, 0.06), 0 0 80px -30px rgba(98, 182, 255, 0.35);
+  animation: termIn 0.35s var(--ease);
+  font-family: var(--font-mono); font-size: 0.86rem; line-height: 1.55;
+}
+
+.term__bar { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1rem; background: var(--t-bar); border-bottom: 1px solid #1a2230; }
+.term__dots { display: flex; gap: 7px; }
+.term__dot { width: 12px; height: 12px; border-radius: 50%; }
+.term__dot--r { background: #ff5f57; } .term__dot--y { background: #febc2e; } .term__dot--g { background: #28c840; }
+.term__title { flex: 1; text-align: center; color: var(--t-dim); font-size: 0.78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.term__exit { background: none; border: 1px solid #263044; border-radius: 6px; color: var(--t-dim); padding: 0.15rem 0.55rem; font-size: 0.72rem; transition: color 0.2s, border-color 0.2s; }
+.term__exit:hover { color: var(--t-text); border-color: var(--t-cyan); }
+
+.term__body { flex: 1; overflow-y: auto; padding: 1rem 1.15rem 0.5rem; scroll-behavior: smooth; cursor: text; }
+.term__body::-webkit-scrollbar { width: 8px; }
+.term__body::-webkit-scrollbar-thumb { background: #1f2837; border-radius: 8px; }
+
+.term__out { white-space: pre-wrap; word-break: break-word; }
+.tl { min-height: 1.55em; }
+.tl--cmd { margin-top: 0.55rem; }
+.term .t-dim { color: var(--t-dim); }
+.term .t-key { color: var(--t-cyan); }
+.term .t-ok { color: var(--t-green); }
+.term .t-warn { color: var(--t-amber); }
+.term .t-violet { color: var(--t-violet); }
+.term .t-err { color: var(--t-red); }
+.term .t-b { color: #fff; font-weight: 500; }
+.term .t-art { color: var(--t-cyan); line-height: 1.2; display: inline-block; }
+.term a { color: var(--t-cyan); border-bottom: 1px dotted currentColor; }
+.term a:hover { color: #fff; }
+.term .t-cmd { color: var(--t-green); cursor: pointer; border-bottom: 1px dotted transparent; }
+.term .t-cmd:hover { border-bottom-color: var(--t-green); }
+.term .t-bar { color: var(--t-cyan); letter-spacing: -1px; }
+
+.term__line { display: flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0 1rem; }
+.term__prompt { color: var(--t-green); white-space: nowrap; user-select: none; }
+.term__prompt b { color: var(--t-cyan); font-weight: 400; }
+.term__input {
+  flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: #fff; font: inherit; caret-color: var(--t-green);
+  padding: 0;
+}
+
+.term__chips { display: flex; flex-wrap: wrap; gap: 0.45rem; padding: 0.7rem 1rem; border-top: 1px solid #1a2230; background: var(--t-bar); }
+.term__chips button {
+  font: inherit; font-size: 0.74rem; color: var(--t-dim); background: transparent; border: 1px solid #263044;
+  border-radius: 999px; padding: 0.2rem 0.7rem; transition: color 0.2s, border-color 0.2s;
+}
+.term__chips button:hover { color: var(--t-green); border-color: var(--t-green); }
+
+@keyframes termIn { from { opacity: 0; transform: translateY(16px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes termFade { from { opacity: 0; } }
+
+@media (max-width: 640px) {
+  .term { padding: 0; }
+  .term__window { border-radius: 0; height: 100%; font-size: 0.78rem; }
+  .term__prompt .t-host { display: none; }
+}

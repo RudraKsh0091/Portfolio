@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="jarvis">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rudraksh Garg | AI/ML Engineer</title>
+  <meta name="description"
+    content="Portfolio of Rudraksh Garg, B.Tech CSE student at IIIT Una building end-to-end AI/ML systems: RAG, speech synthesis, forecasting and computer vision." />
+  <meta name="theme-color" content="#050a13" />
+  <meta property="og:title" content="Rudraksh Garg | AI/ML Engineer" />
+  <meta property="og:description"
+    content="End-to-end AI/ML projects, from notebook to deployment. Try the terminal mode." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="assets/fonts/space-grotesk-latin-600-normal.woff2" as="font" type="font/woff2"
+    crossorigin />
+  <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/terminal.css" />
+
+  <!-- Apply saved theme + colour mode before first paint to avoid a flash -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "dark" && t !== "light") t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        var a = localStorage.getItem("accent");
+        if (["jarvis", "ultron", "matrix", "nebula", "solar"].indexOf(a) === -1) a = t === "light" ? "ultron" : "jarvis";
+        document.documentElement.setAttribute("data-theme", t);
+        document.documentElement.setAttribute("data-accent", a);
+      } catch (e) { }
+    })();
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <!-- Living background: one full-page canvas (neural mesh that reacts to the mouse like fabric + the hero "AI core") -->
+  <div class="vignette" aria-hidden="true"></div>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#home" class="nav__logo" aria-label="Rudraksh Garg, home">rudraksh<span>.</span></a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#stack">Stack</a>
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav__actions">
+        <button class="term-btn mono" id="termToggle" type="button" aria-label="Open terminal mode"
+          title="Terminal mode (press `)">
+          <span aria-hidden="true">&gt;_</span><span class="term-btn__label">terminal</span>
+        </button>
+        <div class="palette" id="palette">
+          <button class="icon-btn" id="paletteBtn" type="button" aria-label="Choose colour mode" aria-haspopup="true"
+            aria-expanded="false" aria-controls="palettePop" title="Colour mode">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.9 1.5-1.9-.3-1 .4-2.1 1.5-2.1H17a4 4 0 0 0 4-4c0-5-4-10-9-10z" />
+              <circle cx="7.5" cy="11" r="1.1" fill="currentColor" />
+              <circle cx="10.5" cy="7" r="1.1" fill="currentColor" />
+              <circle cx="15.5" cy="7.5" r="1.1" fill="currentColor" />
+            </svg>
+          </button>
+          <div class="palette__pop" id="palettePop" role="group" aria-label="Colour mode" hidden>
+            <p class="palette__title mono">Colour mode</p>
+            <button type="button" class="swatch" data-accent="jarvis" style="--sw-d:#3ddcff;--sw-l:#2a5a9c"
+              aria-pressed="false"><i></i>Jarvis</button>
+            <button type="button" class="swatch" data-accent="ultron" style="--sw-d:#ff4560;--sw-l:#7b1d38"
+              aria-pressed="false"><i></i>Ultron</button>
+            <button type="button" class="swatch" data-accent="matrix" style="--sw-d:#34e08a;--sw-l:#245c46"
+              aria-pressed="false"><i></i>Matrix</button>
+            <button type="button" class="swatch" data-accent="nebula" style="--sw-d:#a98bff;--sw-l:#5b3d8c"
+              aria-pressed="false"><i></i>Nebula</button>
+            <button type="button" class="swatch" data-accent="solar" style="--sw-d:#ffb02e;--sw-l:#9a5416"
+              aria-pressed="false"><i></i>Solar</button>
+          </div>
+        </div>
+        <button class="icon-btn" id="themeToggle" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="icon icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+          <svg class="icon icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+        </button>
+        <a class="btn btn--small btn--ghost nav__resume"
+          href="https://drive.google.com/file/d/1FrHUdKScxhkaPYUXxX0RIgkRuuVJDDpH/view?usp=sharing" target="_blank"
+          rel="noopener">Resume</a>
+        <button class="icon-btn nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"
+          aria-controls="navLinks">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="container hero__grid">
+        <div class="hero__card">
+          <p class="eyebrow reveal"><span class="dot"></span> Open to placements and internships</p>
+          <h1 class="hero__title reveal">
+            Hi, I'm <span class="hero__name">Rudraksh Garg</span>.<br />
+            I build machine learning systems that <em>actually ship</em>.
+          </h1>
+          <p class="hero__roles reveal">
+            <span class="mono muted">&gt;</span>
+            <span id="typed" class="mono"></span><span class="caret" aria-hidden="true"></span>
+          </p>
+          <p class="hero__lead reveal">
+            Third-year B.Tech CSE student at IIIT Una. I like taking an idea from raw data to a deployed,
+            usable product: RAG pipelines, speech synthesis, forecasting and computer vision.
+          </p>
+          <div class="hero__cta reveal">
+            <a href="#projects" class="btn btn--primary">View projects
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <button type="button" class="btn btn--ghost" id="heroTerm"><span class="mono">&gt;_</span> Try terminal
+              mode</button>
+            <a href="#contact" class="btn btn--ghost">Get in touch</a>
+          </div>
+          <ul class="hero__social reveal" aria-label="Social links">
+            <li><a href="https://github.com/RudraKsh0091" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z" />
+                </svg></a></li>
+            <li><a href="https://www.linkedin.com/in/rudraksh-garg-614b68323/" target="_blank" rel="noopener"
+                aria-label="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+                </svg></a></li>
+            <li><a href="https://leetcode.com/u/RudraKsh_00/" target="_blank" rel="noopener" aria-label="LeetCode">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16.5 7 10 .5 3.5 7a6.5 6.5 0 0 0 0 9.2l4.3 4.3a3 3 0 0 0 4.2 0l1.5-1.5" />
+                  <path d="M8 12h12" />
+                </svg></a></li>
+            <li><a href="mailto:rudrakshgarg.ai@gmail.com" aria-label="Email" data-email-href>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg></a></li>
+          </ul>
+        </div>
+        <div class="hero__orb" id="orbSlot" aria-hidden="true"></div>
+      </div>
+      <a href="#about" class="scroll-cue" aria-label="Scroll to about section"><span></span></a>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__num mono">01</span>
+          <h2>About me</h2>
+        </div>
+
+        <div class="about">
+          <div class="about__photo reveal">
+            <div class="photo" id="photo">
+              <span class="photo__initials" aria-hidden="true">RG</span>
+              <!-- To add your photo: save it as assets/photo.jpg (see README). -->
+              <img src="assets/photo.png" alt="Portrait of Rudraksh Garg" width="360" height="450"
+                onerror="this.style.display='none'" />
+            </div>
+            <p class="photo__caption mono muted">Una, Himachal Pradesh</p>
+          </div>
+
+          <div class="about__body reveal">
+            <p>
+              I'm a Computer Science student at <strong>IIIT Una</strong> with a CGPA of <strong>9.25</strong>,
+              and I spend most of my time on the practical side of AI. A model that scores well in a notebook
+              is only half the job for me; I want it wrapped in an API, containerised, deployed and used by real people.
+            </p>
+            <p>
+              Recent work includes a retrieval-augmented Q&amp;A system for YouTube videos, a zero-shot voice
+              cloning pipeline, and a live electricity demand forecaster built on a dataset I scraped and cleaned
+              myself.
+              I'm comfortable across the stack, from feature engineering and model training to FastAPI backends and
+              Docker deployments.
+            </p>
+            <p>
+              Outside of projects I practise problem solving (260+ LeetCode problems) and build robots. I'm looking for
+              <strong>placement and internship roles</strong> in AI/ML and software engineering where I can keep
+              learning fast.
+            </p>
+
+            <div class="stats" id="stats">
+              <div class="stat"><span class="stat__num" data-count="9.25" data-decimals="2">0</span><span
+                  class="stat__label">CGPA / 10</span></div>
+              <div class="stat"><span class="stat__num" data-count="2" data-suffix="×">0</span><span
+                  class="stat__label">Silver medals</span></div>
+              <div class="stat"><span class="stat__num" data-count="260" data-suffix="+">0</span><span
+                  class="stat__label">LeetCode solved</span></div>
+              <div class="stat"><span class="stat__num" data-count="6">0</span><span class="stat__label">ML
+                  projects</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TECH STACK MAP ============ -->
+    <section class="section section--alt" id="stack">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__num mono">02</span>
+          <h2>Tech stack map</h2>
+        </div>
+        <p class="section__intro reveal">
+          Every bubble is a tool I've used, drifting around the box. Bigger bubbles appear in more of my projects. Hover
+          one to pause it, click it to see what it connects to and where I used it, or pick a category below.</p>
+
+        <div class="stackmap reveal" id="stackMap">
+          <div class="stackmap__canvas" id="stackCanvas">
+            <svg id="stackSvg" role="group"
+              aria-label="Interactive tech stack map. Each circle is a technology; select one to highlight related tools."></svg>
+          </div>
+          <aside class="stackmap__panel" id="stackPanel" aria-live="polite"></aside>
+        </div>
+        <div class="legend reveal" id="stackLegend" role="group" aria-label="Filter stack by category"></div>
+
+        <p class="skills__course reveal mono muted" id="coursework"></p>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__num mono">03</span>
+          <h2>Selected projects</h2>
+        </div>
+
+        <div class="filters reveal" role="group" aria-label="Filter projects">
+          <button class="filter is-active" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" data-filter="genai" aria-pressed="false">GenAI</button>
+          <button class="filter" data-filter="ml" aria-pressed="false">Machine learning</button>
+          <button class="filter" data-filter="vision" aria-pressed="false">Computer vision</button>
+          <button class="filter" data-filter="live" aria-pressed="false">Deployed</button>
+        </div>
+
+        <div class="projects" id="projectGrid"></div>
+
+        <p class="projects__more reveal">
+          More on <a href="https://github.com/RudraKsh0091" target="_blank" rel="noopener">GitHub &#8599;</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ JOURNEY ============ -->
+    <section class="section section--alt" id="journey">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__num mono">04</span>
+          <h2>Education &amp; achievements</h2>
+        </div>
+        <div class="journey">
+          <div class="timeline" id="timeline"></div>
+          <div class="awards" id="awards"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section__head reveal">
+          <span class="section__num mono">05</span>
+          <h2>Let's talk</h2>
+        </div>
+
+        <div class="contact">
+          <div class="contact__info reveal">
+            <p class="contact__lead">
+              I'm looking for placement and internship opportunities in AI/ML and software engineering.
+              If you have a role, a project idea or just a question, my inbox is open.
+            </p>
+
+            <ul class="contact__list">
+              <li>
+                <span class="contact__label mono muted">Email</span>
+                <span class="contact__row">
+                  <a href="mailto:rudrakshgarg.ai@gmail.com" data-email-href
+                    data-email-text>rudrakshgarg.ai@gmail.com</a>
+                  <button class="copy" id="copyEmail" type="button" data-email="rudrakshgarg.ai@gmail.com">Copy</button>
+                </span>
+              </li>
+              <li>
+                <span class="contact__label mono muted">Phone</span>
+                <a href="tel:+919034674450">+91 90346 74450</a>
+              </li>
+              <li>
+                <span class="contact__label mono muted">LinkedIn</span>
+                <a href="https://www.linkedin.com/in/rudraksh-garg-614b68323/" target="_blank"
+                  rel="noopener">rudraksh-garg-614b68323</a>
+              </li>
+              <li>
+                <span class="contact__label mono muted">GitHub</span>
+                <a href="https://github.com/RudraKsh0091" target="_blank" rel="noopener">RudraKsh0091</a>
+              </li>
+            </ul>
+
+            <a class="btn btn--primary"
+              href="https://drive.google.com/file/d/1FrHUdKScxhkaPYUXxX0RIgkRuuVJDDpH/view?usp=sharing" target="_blank"
+              rel="noopener">
+              View resume
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17 17 7M8 7h9v9" />
+              </svg>
+            </a>
+          </div>
+
+          <form class="form reveal" id="contactForm" novalidate>
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+              <span class="field__error" data-for="name"></span>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="muted">(optional, so I can reply)</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" />
+              <span class="field__error" data-for="email"></span>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Hi Rudraksh, ..."></textarea>
+              <span class="field__error" data-for="message"></span>
+            </div>
+            <!-- Honeypot: real visitors never see or fill this -->
+            <input type="text" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <button class="btn btn--primary btn--block" type="submit" id="submitBtn">
+              <span class="btn__label">Send message</span>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m22 2-7 20-4-9-9-4zM22 2 11 13" />
+              </svg>
+            </button>
+            <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="muted">&copy; <span id="year"></span> Rudraksh Garg. Built with plain HTML, CSS and JavaScript.</p>
+      <p class="muted mono footer__hint">psst: press <kbd>`</kbd> for terminal mode</p>
+      <a href="#home" class="footer__top mono">Back to top &uarr;</a>
+    </div>
+  </footer>
+
+  <!-- ============ CASE STUDY MODAL ============ -->
+  <dialog class="modal" id="caseModal" aria-labelledby="caseTitle">
+    <div class="modal__box">
+      <button class="modal__close icon-btn" id="caseClose" type="button" aria-label="Close case study">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M6 6l12 12M18 6 6 18" />
+        </svg>
+      </button>
+      <div class="modal__content" id="caseContent"></div>
+    </div>
+  </dialog>
+
+  <!-- ============ TERMINAL MODE ============ -->
+  <div class="term" id="terminal" role="dialog" aria-modal="true" aria-label="Terminal mode" hidden>
+    <div class="term__window">
+      <div class="term__bar">
+        <div class="term__dots" aria-hidden="true"><span class="term__dot term__dot--r"></span><span
+            class="term__dot term__dot--y"></span><span class="term__dot term__dot--g"></span></div>
+        <span class="term__title mono" id="termTitle">rudraksh@portfolio: ~</span>
+        <button class="term__exit mono" id="termClose" type="button" aria-label="Close terminal">esc &times;</button>
+      </div>
+      <div class="term__body" id="termBody">
+        <div class="term__out" id="termOut"></div>
+        <form class="term__line" id="termForm" autocomplete="off">
+          <label class="term__prompt" id="termPrompt" for="termInput"></label>
+          <input id="termInput" class="term__input" type="text" spellcheck="false" autocapitalize="off"
+            autocomplete="off" autocorrect="off" aria-label="Terminal command" />
+        </form>
+      </div>
+      <div class="term__chips" id="termChips" aria-label="Quick commands"></div>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="padding:2rem;text-align:center">This portfolio needs JavaScript. You can still find me on
+      <a href="https://github.com/RudraKsh0091">GitHub</a> and
+      <a href="https://www.linkedin.com/in/rudraksh-garg-614b68323/">LinkedIn</a>, or email rudrakshgarg.ai@gmail.com.
+    </p>
+  </noscript>
+
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/background.js"></script>
+  <script src="js/stack.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
