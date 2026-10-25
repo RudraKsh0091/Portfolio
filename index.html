@@ -27,7 +27,7 @@
         var t = localStorage.getItem("theme");
         if (t !== "dark" && t !== "light") t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
         var a = localStorage.getItem("accent");
-        if (["jarvis", "ultron", "matrix", "nebula", "solar"].indexOf(a) === -1) a = t === "light" ? "ultron" : "jarvis";
+        if (["jarvis", "ultron", "matrix", "nebula", "solar"].indexOf(a) === -1) a = t === "light" ? "ultron" : "nebula";
         document.documentElement.setAttribute("data-theme", t);
         document.documentElement.setAttribute("data-accent", a);
       } catch (e) { }
